@@ -1,0 +1,7 @@
+<div class="customer">
+  <h3><%= customer.full_name %></h3>
+  <p><strong>Phone:</strong> <%= customer.phone_number %></p>
+  <p><strong>Email:</strong> <%= customer.email.present? ? customer.email : "Not provided" %></p>
+  <p><strong>Notes:</strong> <%= customer.notes %></p>
+  <%= image_tag customer.image.url if customer.image.attached? %>
+</div>
