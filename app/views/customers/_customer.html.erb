@@ -1,7 +1,18 @@
-<div class="customer">
-  <h3><%= customer.full_name %></h3>
+<div class="customer-card box">
+  <% if customer.image.attached? %>
+    <%= image_tag customer.image, class: "customer-image" %>
+  <% else %>
+    <%= image_tag "default_avatar.png", class: "customer-image" %>
+  <% end %>
+
+ <div class="customer-details">
+  <h2><%= customer.full_name %></h2>
   <p><strong>Phone:</strong> <%= customer.phone_number %></p>
-  <p><strong>Email:</strong> <%= customer.email.present? ? customer.email : "Not provided" %></p>
+  <% if customer.email.present? %>
+    <p><strong>Email:</strong> <%= mail_to customer.email %></p>
+  <% else %>
+    <p><strong>Email:</strong> <em>Not provided</em></p>
+  <% end %>
   <p><strong>Notes:</strong> <%= customer.notes %></p>
-  <%= image_tag customer.image.url if customer.image.attached? %>
+</div>
 </div>

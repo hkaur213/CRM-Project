@@ -1,4 +1,12 @@
-<h1>Customers</h1>
-<%= render @customers %>
-<%= link_to 'View Alphabetized Customers', customers_alphabetized_path %>
-<%= link_to 'View Customers with Missing Emails', customers_missing_email_path %>
+<h1>All Customers</h1>
+
+<div class="links">
+<%= link_to 'View Alphabetized Customers', alphabetized_customers_path %> <!-- Updated route name -->
+<%= link_to 'View Customers with Missing Emails', missing_email_customers_path %> <!-- Updated route name -->
+</div>
+
+<div class="customer-list">
+  <% @customers.each do |customer| %>
+    <%= render partial: 'customer', locals: { customer: customer } %>
+  <% end %>
+</div>
