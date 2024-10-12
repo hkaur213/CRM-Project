@@ -1,5 +1,12 @@
-
 ActiveAdmin.register Customer do
+  # Allow Ransack search
+  filter :full_name
+  filter :phone_number
+  filter :email
+  filter :notes
+  filter :created_at
+  filter :updated_at
+
   permit_params :full_name, :phone_number, :email, :notes, :image
 
   form do |f|
@@ -21,8 +28,12 @@ ActiveAdmin.register Customer do
     column :email
     column :notes
     column :image do |customer|
-      image_tag url_for(customer.image) if customer.image.attached?
+      if customer.image.attached?
+        image_tag customer.image.variant(resize_to_limit: [80, 80]).processed
+      end
     end
+    column :created_at
+    column :updated_at
     actions
   end
 
@@ -33,8 +44,10 @@ ActiveAdmin.register Customer do
       row :email
       row :notes
       row :image do |customer|
-        image_tag url_for(customer.image) if customer.image.attached?
-      end
+        if customer.image.attached?
+          image_tag customer.image.variant(resize_to_limit: [200, 200]) 
+        end
+      end 
     end
     active_admin_comments
   end
